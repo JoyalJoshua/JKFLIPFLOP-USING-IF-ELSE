@@ -38,26 +38,48 @@ The maximum possible groupings of adjacent ones are already shown in the figure.
 
 **PROGRAM**
 ```
- module jk_flipflop(J,K,c1k,q,qbar);
- input J,K,c1k;
- output reg q;
- output reg qbar;
- initial q=0;
- initial qbar=1;
- always @(posedge c1k)
- begin
- q=((J&(~q)))|((~K)&q);
- qbar=~q;
- end
- endmodule
+module jkflipflop(q,qb,j,k,clock,reset);
+	input j,k,clock,reset;
+	output reg q,qb;
+always @ (posedge(clock))
+	begin
+		if(!reset)
+			begin
+				q<=q;
+				qb<=qb;
+			end 
+		else
+			begin
+				if(j==0 && k==0)
+					begin
+					q<=q;
+					qb<=qb;
+					end
+				else if(j!=k)
+					begin
+					q<=j;
+					qb<=k;
+					end
+				else if(j==1 && k==1)
+					begin
+					q<=~q;
+					qb<=~qb;
+					end
+			end
+		end 
+endmodule
 ```
-/* Program for flipflops and verify its truth table in quartus using Verilog programming. Developed by: RegisterNumber:
+/* Program for flipflops and verify its truth table in quartus using Verilog programming. 
+
+Developed by: RegisterNumber:212225040162
 */
-<img width="1917" height="1078" alt="image" src="https://github.com/user-attachments/assets/0dc4d421-9fc7-4253-982f-a144cc6e17d3" />
+<img width="1917" height="1078" alt="image" src="https://github.com/user-attachments/assets/862095d7-5c91-441f-9038-dfe8e56a6add" />
+
 
 **RTL LOGIC FOR FLIPFLOPS**
-<img width="1916" height="1078" alt="image" src="https://github.com/user-attachments/assets/f53103df-28fc-475a-9aa0-036c246af020" />
+<img width="1917" height="1078" alt="image" src="https://github.com/user-attachments/assets/11b28f94-a83d-4061-a3e2-a483e5a4446a" />
 
 **TIMING DIGRAMS FOR FLIP FLOPS**
+<img width="1912" height="1077" alt="image" src="https://github.com/user-attachments/assets/a3d25abc-9761-4291-beef-69203f3495e3" />
 
 **RESULTS**
